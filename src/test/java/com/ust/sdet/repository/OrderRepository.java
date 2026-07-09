@@ -15,9 +15,9 @@ public class OrderRepository {
 
         try {
             connection = DriverManager.getConnection(
-                    System.getProperty("db.url", "jdbc:postgresql://localhost:5432/testdb"),
-                    System.getProperty("db.user", "postgres"),
-                    System.getProperty("db.password", "postgres")
+                    System.getProperty("db.url", "jdbc:postgresql://localhost:5432/orderdb"),
+                    System.getProperty("db.user", "salman"),
+                    System.getProperty("db.password", "Salmon@123")
             );
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -111,9 +111,9 @@ public class OrderRepository {
         return new OrderRecord(
                 rs.getString("sku"),
                 rs.getInt("quantity"),
-                rs.getLong("total_paise"),
+                rs.getLong("totalPaise"),
                 rs.getString("status"),
-                rs.getDate("ordered_on").toLocalDate(),
+                rs.getDate("orderedOn").toLocalDate(),
                 rs.getBoolean("refunded")
         );
     }

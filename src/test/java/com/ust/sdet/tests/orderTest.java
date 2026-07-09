@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OrderDataIT {
+public class orderTest {
 
     private static final OrderRepository repo = new OrderRepository();
     private static final OrderFactory fact = new OrderFactory(repo);
