@@ -22,7 +22,7 @@ public class orderTest {
 
         Flyway flyway = Flyway.configure()
                 .dataSource(
-                        System.getProperty("db.url", "jdbc:postgresql://localhost:5432/orderdb"),
+                        System.getProperty("db.url", "jdbc:postgresql://localhost:5001/orderdb"),
                         System.getProperty("db.user", "salman"),
                         System.getProperty("db.password", "Salmon@123")
                 )
