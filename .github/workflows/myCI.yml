@@ -60,7 +60,6 @@ jobs:
           PGPASSWORD: postgres
 
       - name: Execute Integration Tests
-        working-directory: Gradle_Project
         env:
           JAVA_TOOL_OPTIONS: >
             -Ddb.url=jdbc:postgresql://localhost:5432/orderdb
