@@ -63,6 +63,6 @@ jobs:
         env:
           JAVA_TOOL_OPTIONS: >
             -Ddb.url=jdbc:postgresql://localhost:5432/orderdb
-            -Ddb.user=Salman
+            -Ddb.user=salman
             -Ddb.password=Salmon@123
         run: ./gradlew clean test --info
