@@ -47,7 +47,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Make Gradle Executable
-        working-directory: Gradle_Project
         run: chmod +x gradlew
 
       - name: Verify PostgreSQL Connection
