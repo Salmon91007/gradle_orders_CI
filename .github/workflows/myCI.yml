@@ -8,12 +8,9 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-
 jobs:
-  integration-tests:
-    name: JDBC Repository Tests
+  repository-integration-test:
+
     runs-on: ubuntu-latest
 
     services:
@@ -21,9 +18,9 @@ jobs:
         image: postgres:16
 
         env:
-          POSTGRES_DB: testdb
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: orderdb
+          POSTGRES_USER: salman
+          POSTGRES_PASSWORD: Salmon@123
 
         ports:
           - 5432:5432
@@ -34,15 +31,12 @@ jobs:
           --health-timeout=5s
           --health-retries=5
 
-    defaults:
-      run:
-        working-directory: Gradle_Project
-
     steps:
-      - name: Checkout source
+
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install JDK
+      - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -52,13 +46,25 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Grant execute permission
+      - name: Make Gradle Executable
+        working-directory: Gradle_Project
         run: chmod +x gradlew
 
-      - name: Execute repository tests
-        run: ./gradlew clean orderTest --info
+      - name: Verify PostgreSQL Connection
+        run: |
+          until pg_isready -h localhost -p 5432 -U postgres
+          do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+        env:
+          PGPASSWORD: postgres
+
+      - name: Execute Integration Tests
+        working-directory: Gradle_Project
         env:
           JAVA_TOOL_OPTIONS: >
-            -Ddb.url=jdbc:postgresql://localhost:5432/testdb
-            -Ddb.user=postgres
-            -Ddb.password=postgres
+            -Ddb.url=jdbc:postgresql://localhost:5432/orderdb
+            -Ddb.user=Salman
+            -Ddb.password=Salmon@123
+        run: ./gradlew clean test --info

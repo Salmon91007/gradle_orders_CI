@@ -15,16 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class OrderDataIT {
 
     private static final OrderRepository repo = new OrderRepository();
-    private static final OrderFactory factory = new OrderFactory(repo);
+    private static final OrderFactory fact = new OrderFactory(repo);
 
     @BeforeAll
     static void migrateDatabase() {
 
         Flyway flyway = Flyway.configure()
                 .dataSource(
-                        System.getProperty("db.url", "jdbc:postgresql://localhost:5432/testdb"),
-                        System.getProperty("db.user", "postgres"),
-                        System.getProperty("db.password", "postgres")
+                        System.getProperty("db.url", "jdbc:postgresql://localhost:5432/orderdb"),
+                        System.getProperty("db.user", "salman"),
+                        System.getProperty("db.password", "Salmon@123")
                 )
                 .load();
 
@@ -37,18 +37,18 @@ public class OrderDataIT {
     }
 
     @Test
-    void createsOrder() throws SQLException {
+    void creates() throws SQLException {
 
-        factory.persisted(
+        fact.persisted(
                 OrderBuilder.anOrder()
                         .withQuantity(3)
         );
     }
 
     @Test
-    void countsOrders() throws SQLException {
+    void counts() throws SQLException {
 
-        factory.persisted(
+        fact.persisted(
                 OrderBuilder.anOrder()
         );
 

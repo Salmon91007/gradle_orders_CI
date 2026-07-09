@@ -7,16 +7,15 @@ version = "0.1.0"
 
 val seleniumVersion = "4.45.0"
 val selenideVersion = "7.16.2"
-val junitVersion = "5.14.4"
+val junitVersion = "5.13.4"
 val cucumberVersion = "7.34.3"
 val allureVersion = "2.33.0"
 val extentVersion = "5.1.2"
 val extentCucumberAdapterVersion = "1.14.0"
 val slf4jVersion = "2.0.17"
-val testcontainersVersion ="2.0.5"
+val testcontainersVersion = "2.0.5"
 val flywayVersion = "10.22.0"
 val postgresqlVersion = "42.7.4"
-
 
 java {
     sourceCompatibility = JavaVersion.VERSION_22
@@ -40,13 +39,13 @@ dependencies {
     testImplementation("com.aventstack:extentreports:$extentVersion")
     testImplementation("tech.grasshopper:extentreports-cucumber7-adapter:$extentCucumberAdapterVersion")
     testImplementation("org.slf4j:slf4j-simple:$slf4jVersion")
+    testImplementation("org.testcontainers:testcontainers-junit-jupiter:${testcontainersVersion}")
 
-    testImplementation("org.testcontainers:testcontainers-junit-jupiter:$testcontainersVersion")
-    testImplementation("org.testcontainers:testcontainers-postgresql:${testcontainersVersion}")
-    testImplementation("org.flywaydb:flyway-core:${flywayVersion}")
+    testImplementation("org.flywaydb:flyway-core:$flywayVersion")
     testImplementation("org.flywaydb:flyway-database-postgresql:$flywayVersion")
-    testImplementation("org.postgresql:postgresql:$postgresqlVersion")
+    testImplementation("org.postgresql:postgresql:${postgresqlVersion}")
 
+    testImplementation("org.testcontainers:testcontainers-postgresql:${testcontainersVersion}")
 }
 
 tasks.withType<JavaCompile>().configureEach {
@@ -105,6 +104,15 @@ val parallelStructureTest by tasks.registering(Test::class) {
     useJUnitPlatform()
     include("**/Refactoring_Test.class")
     maxParallelForks = Runtime.getRuntime().availableProcessors().coerceAtMost(2)
+}
+
+val orderTest by tasks.registering(Test::class) {
+    description = "Demonstrates Gradle test forks with no-browser checks."
+    group = "verification"
+    useProjectTestClasses()
+    useJUnitPlatform()
+    include("**/OrderTest.class")
+    maxParallelForks = 1
 }
 
 val cucumberSmoke by tasks.registering(Test::class) {

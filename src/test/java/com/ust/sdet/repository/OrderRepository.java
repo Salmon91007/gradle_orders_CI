@@ -28,7 +28,7 @@ public class OrderRepository {
 
         String sql = """
                 INSERT INTO orders
-                (sku, quantity, total_paise, status, ordered_on, refunded)
+                (sku, quantity, totalPaise, status, orderedOn, refunded)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """;
 
