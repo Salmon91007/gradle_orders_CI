@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ust.sdet.tests.CatalogPOMTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-07-09T05:41:19.139Z" hostname="5CG22245RD" time="10.091">
+  <properties/>
+  <testcase name="catalogToConfirmedOrder()" classname="com.ust.sdet.tests.CatalogPOMTest" time="10.091"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Jul 09, 2026 11:11:22 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find an exact match for CDP version 150, returning the closest version; found: 149; Please update to a Selenium version that supports CDP version 150
+]]></system-err>
+</testsuite>

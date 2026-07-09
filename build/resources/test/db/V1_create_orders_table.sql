@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS orders (
+    sku VARCHAR(100) PRIMARY KEY,
+    quantity INTEGER NOT NULL,
+    totalPaise BIGINT NOT NULL,
+    status VARCHAR(30) NOT NULL,
+    orderedOn DATE NOT NULL,
+    refunded BOOLEAN NOT NULL DEFAULT FALSE
+);
