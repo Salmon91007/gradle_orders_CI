@@ -11,7 +11,7 @@ public final class DataBase {
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
-                System.getProperty("db.url", "jdbc:postgresql://localhost:5001/orderdb"),
+                System.getProperty("db.url", "jdbc:postgresql://localhost:5432/orderdb"),
                 System.getProperty("db.user", "salman"),
                 System.getProperty("db.password", "Salmon@123")
         );

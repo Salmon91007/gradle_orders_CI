@@ -26,7 +26,7 @@ jobs:
           - 5432:5432
 
         options: >-
-          --health-cmd="pg_isready -U postgres"
+          --health-cmd="pg_isready -U salman"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -51,13 +51,13 @@ jobs:
 
       - name: Verify PostgreSQL Connection
         run: |
-          until pg_isready -h localhost -p 5432 -U postgres
+          until pg_isready -h localhost -p 5432 -U salman
           do
             echo "Waiting for PostgreSQL..."
             sleep 2
           done
         env:
-          PGPASSWORD: postgres
+          PGPASSWORD: Salmon@123
 
       - name: Execute Integration Tests
         env:
@@ -66,3 +66,25 @@ jobs:
             -Ddb.user=salman
             -Ddb.password=Salmon@123
         run: ./gradlew clean test --info
+
+
+      - name: Generate Allure Report
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        with:
+              allure_results: build/allure-results
+              allure_report: build/allure-report
+
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+              name: allure-results
+              path: build/allure-results
+
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+              name: allure-report
+              path: build/allure-report

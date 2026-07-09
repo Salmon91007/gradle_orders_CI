@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Flaky tests",
+    "matchedStatuses": ["failed","broken"],
+    "messageRegex": "",
+    "flaky": true
+}
+
+]

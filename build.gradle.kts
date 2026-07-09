@@ -40,7 +40,8 @@ dependencies {
     testImplementation("tech.grasshopper:extentreports-cucumber7-adapter:$extentCucumberAdapterVersion")
     testImplementation("org.slf4j:slf4j-simple:$slf4jVersion")
     testImplementation("org.testcontainers:testcontainers-junit-jupiter:${testcontainersVersion}")
-
+    testImplementation("io.qameta.allure:allure-cucumber7-jvm")
+    testImplementation("io.qameta.allure:allure-junit5")
     testImplementation("org.flywaydb:flyway-core:$flywayVersion")
     testImplementation("org.flywaydb:flyway-database-postgresql:$flywayVersion")
     testImplementation("org.postgresql:postgresql:${postgresqlVersion}")
