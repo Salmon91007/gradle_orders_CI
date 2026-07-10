@@ -68,12 +68,12 @@ jobs:
         run: ./gradlew clean test --info
 
 
-      - name: Checkout allure-b branch
+      - name: Checkout allure-b1 branch
         if: always()
         uses: actions/checkout@v4
         with:
-              ref: allure-b
-              path: allure-b
+              ref: allure-b1
+              path: allure-b1
 
       - name: Generate Allure Report
         if: always()
