@@ -1,5 +1,6 @@
 plugins {
     java
+    id("io.qameta.allure") version "2.12.0"
 }
 
 group = "com.ust.sdet"
@@ -45,6 +46,7 @@ dependencies {
     testImplementation("org.flywaydb:flyway-core:$flywayVersion")
     testImplementation("org.flywaydb:flyway-database-postgresql:$flywayVersion")
     testImplementation("org.postgresql:postgresql:${postgresqlVersion}")
+    testImplementation("io.qameta.allure:allure-junit5")
 
     testImplementation("org.testcontainers:testcontainers-postgresql:${testcontainersVersion}")
 }
