@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ust.sdet.tests.orderTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-07-10T07:06:40.083Z" hostname="5CG22245RD" time="0.002">
+  <properties/>
+  <testcase name="initializationError" classname="com.ust.sdet.tests.orderTest" time="0.002">
+    <failure message="java.lang.ExceptionInInitializerError" type="java.lang.ExceptionInInitializerError">java.lang.ExceptionInInitializerError
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized0(Native Method)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized(Unknown Source)
+	at java.base/java.lang.reflect.Method.acquireMethodAccessor(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at io.qameta.allure.junit5.AllureJunit5.processFixture(AllureJunit5.java:138)
+	at io.qameta.allure.junit5.AllureJunit5.interceptBeforeAllMethod(AllureJunit5.java:100)
+	at java.base/java.util.ArrayList.forEach(Unknown Source)
+Caused by: java.lang.RuntimeException: org.postgresql.util.PSQLException: FATAL: password authentication failed for user &quot;salman&quot;
+	at com.ust.sdet.repository.OrderRepository.&lt;init&gt;(OrderRepository.java:23)
+	at com.ust.sdet.tests.orderTest.&lt;clinit&gt;(orderTest.java:20)
+	... 7 more
+Caused by: org.postgresql.util.PSQLException: FATAL: password authentication failed for user &quot;salman&quot;
+	at app//org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:711)
+	at app//org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:213)
+	at app//org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:268)
+	at app//org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at app//org.postgresql.jdbc.PgConnection.&lt;init&gt;(PgConnection.java:273)
+	at app//org.postgresql.Driver.makeConnection(Driver.java:446)
+	at app//org.postgresql.Driver.connect(Driver.java:298)
+	at platform/java.sql@22.0.2/java.sql.DriverManager.getConnection(Unknown Source)
+	at platform/java.sql@22.0.2/java.sql.DriverManager.getConnection(Unknown Source)
+	at app//com.ust.sdet.repository.OrderRepository.&lt;init&gt;(OrderRepository.java:17)
+	... 8 more
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
