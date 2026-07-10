@@ -77,6 +77,7 @@ jobs:
           ref: allure-b1
           path: allure-b1
 
+
       - name: Generate Allure Report
         if: always()
         uses: simple-elf/allure-report-action@master
