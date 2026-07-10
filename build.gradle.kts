@@ -114,9 +114,10 @@ val orderTest by tasks.registering(Test::class) {
     group = "verification"
     useProjectTestClasses()
     useJUnitPlatform()
-    include("**/orderTest.class")
+    include("**/OrderTest.class")
     maxParallelForks = 1
 }
+
 
 val cucumberSmoke by tasks.registering(Test::class) {
     description = "Runs Cucumber smoke scenarios through the Gradle JUnit Platform."

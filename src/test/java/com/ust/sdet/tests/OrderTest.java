@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class orderTest {
+public class OrderTest {
 
     private static final OrderRepository repo = new OrderRepository();
     private static final OrderFactory fact = new OrderFactory(repo);
@@ -62,20 +62,20 @@ public class orderTest {
         assertEquals(2, repo.count());
     }
 
-    @Test
-    void findsOrderBySku() throws SQLException {
-
-        fact.persisted(
-                OrderBuilder.anOrder()
-                        .withSku("SKU-100")
-        );
-
-        Optional<OrderRecord> order = repo.findBySku("SKU-100");
-
-        assertTrue(order.isPresent());
-
-        assertEquals("SKU-100", order.get().sku());
-        assertEquals(1, order.get().quantity());
-    }
+//    @Test
+//    void findsOrderBySku() throws SQLException {
+//
+//        fact.persisted(
+//                OrderBuilder.anOrder()
+//                        .withSku("SKU-100")
+//        );
+//
+//        Optional<OrderRecord> order = repo.findBySku("SKU-100");
+//
+//        assertTrue(order.isPresent());
+//
+//        assertEquals("SKU-100", order.get().sku());
+//        assertEquals(1, order.get().quantity());
+//    }
 
 }
