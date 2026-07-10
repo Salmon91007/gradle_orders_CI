@@ -5,13 +5,12 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+
 permissions:
   contents: write
 
 jobs:
-  repository-integration-test:
+  order-test:
 
     runs-on: ubuntu-latest
 
@@ -20,15 +19,15 @@ jobs:
         image: postgres:16
 
         env:
-          POSTGRES_DB: orderdb
-          POSTGRES_USER: salman
-          POSTGRES_PASSWORD: Salmon@123
+          POSTGRES_DB: testdb
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
 
         ports:
           - 5432:5432
 
         options: >-
-          --health-cmd="pg_isready -U salman"
+          --health-cmd="pg_isready -U postgres"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -37,73 +36,52 @@ jobs:
 
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup JDK
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
-          cache: gradle
+          java-version: 22
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Make Gradle Executable
+      - name: Make Gradle Wrapper Executable
         run: chmod +x gradlew
 
-      - name: Verify PostgreSQL Connection
-        run: |
-          until pg_isready -h localhost -p 5432 -U salman
-          do
-            echo "Waiting for PostgreSQL..."
-            sleep 2
-          done
-        env:
-          PGPASSWORD: Salmon@123
-
-      - name: Execute Integration Tests
+      - name: Run Order Test
+        run: ./gradlew orderTest --no-configuration-cache
         env:
           JAVA_TOOL_OPTIONS: >
-            -Ddb.url=jdbc:postgresql://localhost:5432/orderdb
-            -Ddb.user=salman
-            -Ddb.password=Salmon@123
-        run: ./gradlew clean test --info
-
-
-      - name: Checkout allure-b1 branch
+            -Ddb.url=jdbc:postgresql://localhost:5432/testdb
+            -Ddb.user=postgres
+            -Ddb.password=postgres
+      - name: Debug Allure Results
         if: always()
-        uses: actions/checkout@v4
-        with:
-              ref: allure-b1
-              path: allure-b1
+        run: |
+          echo "=== Allure files ==="
+          ls -la build/allure-results || true
+
+          echo "=== Result JSON ==="
+          cat build/allure-results/*-result.json || true
+
 
       - name: Generate Allure Report
         if: always()
         uses: simple-elf/allure-report-action@master
         with:
-              allure_results: build/allure-results
-              allure_report: build/allure-report
-              gh_pages: allure-b1
-              allure_history: allure-history
+          allure_results: build/allure-results
+          allure_report: allure-report
+          gh_pages: gh-pages
+          allure_history: allure-history
 
-      - name: Deploy Allure Report
+      - name: Deploy report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_branch: allure-b1
-            publish_dir: allure-history
-
-      - name: Upload Allure Results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-              name: allure-results
-              path: build/allure-results
-
-      - name: Upload Allure Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-              name: allure-report
-              path: build/allure-report
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+          force_orphan: true
