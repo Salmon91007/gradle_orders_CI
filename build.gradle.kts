@@ -112,7 +112,7 @@ val orderTest by tasks.registering(Test::class) {
     group = "verification"
     useProjectTestClasses()
     useJUnitPlatform()
-    include("**/OrderTest.class")
+    include("**/orderTest.class")
     maxParallelForks = 1
 }
 
